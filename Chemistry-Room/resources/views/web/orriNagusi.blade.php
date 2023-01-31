@@ -15,7 +15,7 @@
 
 <body class="overflow-hidden">
 
-    @include('web\layouts\_menu') 
+    @include('\layouts\_menu') 
 
     <div class="container d-flex flex-row justify-content-center align-items-center my-5">
         <img class="my-5 lola" src="{{ asset('multimedia/quimica.png') }}" alt="quimica">
