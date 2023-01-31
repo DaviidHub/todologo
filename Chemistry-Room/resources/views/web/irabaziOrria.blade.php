@@ -12,7 +12,7 @@
 
 <body class="overflow-hidden">
 
-    @include('web\layouts\_menuJuegos')
+    @include('web.layouts._menuJuegos') 
 
     <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">

@@ -13,7 +13,7 @@
 
 <body id="letra" class="overflow-hidden">
 
-    @include('web\layouts\_menuJuegos')
+    @include('web.layouts._menuJuegos') 
 
     <p class="text-center mt-3">Molak aterak</p>
     <div id="Datos4" class="position-relative">

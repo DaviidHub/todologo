@@ -8,7 +8,7 @@
 
 <body>
 
-    @include('web\layouts\_menu')
+    @include('web.layouts._menu') 
 
     <div id="profila" class="container my-5 text-center">
 

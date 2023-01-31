@@ -15,7 +15,7 @@
 
 <body class="overflow-hidden ">
     <main>
-        @include('web\layouts\_menuJuegos')
+        @include('web.layouts._menuJuegos') 
 
         <div id="Datos6" class="container d-flex flex-column justify-content-around position-relative m-5">
             <div class="creador d-flex flex-row text-center position-absolute right-0 espacio justify-content-between">
