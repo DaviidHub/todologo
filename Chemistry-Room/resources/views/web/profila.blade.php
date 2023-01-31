@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    @include('../web\layouts\_includes')
+    @include('web.layouts._includes')
 
 </head>
 
