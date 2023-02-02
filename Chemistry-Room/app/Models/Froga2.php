@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class froga2 extends Model
+class Froga2 extends Model
 {
     use HasFactory;
             
