@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Argazkiak extends Model
+class argazkiak extends Model
 {
     use HasFactory;
 

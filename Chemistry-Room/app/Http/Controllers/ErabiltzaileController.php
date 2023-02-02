@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Erabiltzaileak;
-use App\Models\Argazkiak;
+use App\Models\erabiltzaileak;
+use App\Models\argazkiak;
 
 class ErabiltzaileController extends Controller
 {
@@ -16,7 +16,7 @@ class ErabiltzaileController extends Controller
 
      public function index(){
 
-        $lola = Argazkiak::where('izena','=', 'lola')->get()[0];
+        $lola = argazkiak::where('izena','=', 'lola')->get()[0];
         return view('web.login', compact('lola'));
      }
 
@@ -28,7 +28,7 @@ class ErabiltzaileController extends Controller
             'pasahitza' => 'required|min:8|string',
         ]);
 
-        $usuarios = Erabiltzaileak::where('mail','=',$request->mail)->get();
+        $usuarios = erabiltzaileak::where('mail','=',$request->mail)->get();
         foreach($usuarios as $usu){
             if($request->pasahitza == $usu->pasahitza){
                 session(['erab' => $usu]);
@@ -55,7 +55,7 @@ class ErabiltzaileController extends Controller
     public function adminmode()
     {
         //
-        $erab = Erabiltzaileak::orderby('id', 'desc')->paginate(16);
+        $erab = erabiltzaileak::orderby('id', 'desc')->paginate(16);
         return view('adminKarpeta.admin', compact("erab"));
     }
 
@@ -94,7 +94,7 @@ class ErabiltzaileController extends Controller
             ]);
             
             //
-            $erab = new Erabiltzaileak();
+            $erab = new erabiltzaileak();
             $erab ->izena = $request->izena;
             $erab ->abizenak = $request->abizena;
             $erab ->mail = $request->mail;
@@ -111,8 +111,7 @@ class ErabiltzaileController extends Controller
     {
         //
         
-
-        $argazkiDatu = new Argazkiak();
+        $argazkiDatu = new argazkiak();
 
         if($request->hasFile('argazki') ){
             $archivo = $request->file('argazki');
@@ -126,7 +125,7 @@ class ErabiltzaileController extends Controller
         $argazkiDatu->Izena = $request->izena;
         $argazkiDatu->save();
 
-        $erab = Erabiltzaileak::orderby('id', 'desc')->paginate(16);
+        $erab = erabiltzaileak::orderby('id', 'desc')->paginate(16);
 
         return view('adminKarpeta.admin', compact("erab"));
     }
@@ -168,7 +167,7 @@ class ErabiltzaileController extends Controller
 
         if($request->pasahitza != ''){
             if($request->pasahitza == $request->pasahitzab){
-                $erab = Erabiltzaileak::findOrFail($id);
+                $erab = erabiltzaileak::findOrFail($id);
                         $erab ->izena = $request->izena;
                         $erab ->abizenak = $request->abizenak;
                         $erab ->mail = $request->mail;
@@ -180,7 +179,7 @@ class ErabiltzaileController extends Controller
                         return view('web.profila');
             }
         }else{
-            $erab = Erabiltzaileak::findOrFail($id);
+            $erab = erabiltzaileak::findOrFail($id);
             $erab ->izena = $request->izena;
             $erab ->abizenak = $request->abizenak;
             $erab ->mail = $request->mail;
@@ -200,7 +199,7 @@ class ErabiltzaileController extends Controller
      */
     public function destroy($id)
     {
-        $user = Erabiltzaileak::findOrFail($id);
+        $user = erabiltzaileak::findOrFail($id);
         $user->delete();
         return redirect()->route('adminKarpeta.admin')->with('success', 'Erabiltzailea ezabatuta');
     }
