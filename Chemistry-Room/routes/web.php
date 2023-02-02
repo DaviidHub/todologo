@@ -14,11 +14,15 @@ use App\Http\Controllers\ErabiltzaileController;
 |
 */
 
-Route::get('/', [ErabiltzaileController::class, 'index'])->name('web.login');
+Route::get('/web', [ErabiltzaileController::class, 'index'])->name('web.login');
 
 Route::get('/profila', function () {
     return view('web.profila', );
     })->name('web.profila');
+
+Route::get('/kodea', function () {
+    return view('web.kodeSartu');
+})->name('web.kodeSartu');
 
 Route::get('/registro', function () {
     return view('web.registro');

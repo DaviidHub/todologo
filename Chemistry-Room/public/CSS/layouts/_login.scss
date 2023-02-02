@@ -16,7 +16,7 @@ input[type="submit"] {
     display: flex;
     align-self: flex-end;
     margin-top: 1em;
-    color: $dark-green;
+    color: $dark-green !important;
     font-size: large;
     font-weight: bold;
     &:focus {

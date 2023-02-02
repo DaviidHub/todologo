@@ -67,6 +67,14 @@ export default {
         };
     },
     methods: {
+        /**
+         * 
+         * @param {Array} arrayGaldera 
+         * @param {Array} arrayErantzuna 
+         * @param {Int} zenbaki 
+         * @param {Array} jsonPregunta 
+         * @param {Array} jsonRespuesta 
+         */
         cargarDatos(
             arrayGaldera,
             arrayErantzuna,
@@ -88,6 +96,13 @@ export default {
                     }
                 });
         },
+        /**
+         * 
+         * @param {Array} array 
+         * @param {Int} kant 
+         * @param {Int} max 
+         * @param {Int} min 
+         */
         numAleatoriosNoRepes(array, kant, max, min) {
             let i = 0;
             while (i < kant) {
@@ -150,6 +165,10 @@ export default {
         },
     },
     computed: {
+        /**
+         * 
+         * @returns {Boolean} 
+         */
         comprobacionArray() {
             let kont = 0;
             this.bool = false;

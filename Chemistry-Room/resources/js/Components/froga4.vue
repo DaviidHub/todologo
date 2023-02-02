@@ -60,10 +60,22 @@ export default {
             inputRespuestaA: [],
             inputRespuestaB: [],
             correcto: [],
-            bool: false
+            bool: false,
+            vidasPerdidas:
+                localStorage.getItem("lifes") === null
+                    ? [true, true, true, true]
+                    : JSON.parse(localStorage.getItem("lifes")),
         };
     },
     methods: {
+        /**
+         *
+         * @param {Array} arrayGaldera
+         * @param {Array} arrayErantzuna
+         * @param {Int} zenbaki
+         * @param {Array} jsonPregunta
+         * @param {Array} jsonRespuesta
+         */
         cargarDatos(
             arrayGaldera,
             arrayErantzuna,
@@ -83,6 +95,13 @@ export default {
                     }
                 });
         },
+        /**
+         *
+         * @param {Int} kant
+         * @param {Int} max
+         * @param {Int} min
+         * @param {Array} array
+         */
         numAleatoriosNoRepes(array, kant, max, min) {
             let i = 0;
             while (i < kant) {
@@ -104,7 +123,9 @@ export default {
                     Swal.fire({
                         icon: "success",
                         title: "Zorionak",
-                        text: "Irabazi duzu jokoa",
+                        text:
+                            "Irabazi duzu jokoa. Gogoratu zenbakia: " +
+                            localStorage.getItem("codRand")[3],
                         background: "#21605D",
                         color: "white",
                         confirmButtonColor: "#339476",
@@ -114,14 +135,43 @@ export default {
                     });
                     console.log(this.comprobacionArray);
                 } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops",
-                        text: "Zerbait ez dago ondo",
-                        background: "#21605D",
-                        color: "white",
-                        confirmButtonColor: "#339476",
+                    let vidas = this.vidasPerdidas.every((value) => {
+                        return value === false;
                     });
+
+                    if (vidas) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Bizitzak",
+                            text: "amaitu egin dira",
+                            background: "#21605D",
+                            color: "white",
+                            confirmButtonColor: "#339476",
+                        }).then((value) => {
+                            location.href = "./orriNagusi";
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops",
+                            text: "Zerbait ez dago ondo",
+                            background: "#21605D",
+                            color: "white",
+                            confirmButtonColor: "#339476",
+                        });
+                    }
+
+                    localStorage.removeItem("lifes");
+                    localStorage.setItem(
+                        "lifes",
+                        JSON.stringify(this.vidasPerdidas)
+                    );
+
+                    this.vidasPerdidas.splice(
+                        this.vidasPerdidas.lastIndexOf(true),
+                        1,
+                        false
+                    );
                 }
             }
         },
@@ -135,14 +185,14 @@ export default {
     },
     computed: {
         comprobacionArray() {
-            console.log("BASE DE DATOS",this.respuesta)
-            console.log("INPUT RESPUESTAS",this.respuestasJuntas)
-            // let kont = 0;
-            // this.bool = false;
-            
-            return this.respuesta.every((elemento, index) => {
-                elemento == this.respuestasJuntas[index];
+            this.respuesta.forEach((elemento, index) => {
+                console.log(index);
+                console.log(elemento == this.respuestasJuntas[index]);
             });
+            
+            return this.respuesta.every((elemento, index) => 
+                 elemento == this.respuestasJuntas[index]
+        );
         },
     },
 };

@@ -4,8 +4,8 @@ import { createApp } from 'vue';
 // import { createPinia } from 'pinia'
 
 // ======[Orokorra]======
-import Pista from './Components/pista.vue';
-createApp(Pista).mount('#maskota');
+// import Pista from './Components/pista.vue';
+// createApp(Pista).mount('#maskota');
 
 import Timer from './Components/timer.vue';
 const timer = createApp(Timer);
@@ -17,11 +17,9 @@ const lifes = createApp(Lifes);
 lifes.use(createPinia());
 lifes.mount('#vidas');
 
-// ======[Num Random]======
-import NumeroRandom from './Components/numeroRandom.vue';
-const numero = createApp(NumeroRandom)
-numero.use(createPinia());
-numero.mount('#znbk');
+// ======[Kodea]======
+import Kode from './Components/kode.vue';
+createApp(Kode).mount('#Kode');
 
 // ======[Froga 1]======
 import Froga1 from './Components/froga1.vue';

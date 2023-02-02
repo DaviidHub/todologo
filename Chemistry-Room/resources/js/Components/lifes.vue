@@ -10,7 +10,7 @@
             v-else
             src="../../../public/multimedia/life_lose.png"
             alt=""
-            width="57" 
+            width="57"
         />
     </div>
     <!-- <button @click="LIFES.removeLife">Remove life</button> -->
@@ -19,19 +19,5 @@
 <script setup>
 import { useCounterStore } from "@/stores/lifes";
 const LIFES = useCounterStore();
-// export default {
-//     data() {
-//         return {
-//             hola: "LIFES",
-//         };
-//     },
-//     mounted() {
-//         this.mostrar();
-//     },
-//     methods: {
-//         mostrar() {
-//             console.log(this.hola);
-//         },
-//     },
-// };
+LIFES.getLocalStorage();
 </script>

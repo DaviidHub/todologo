@@ -17,6 +17,7 @@
 </template>
 
 <script>
+
 export default {
     mounted() {
         this.cargarDatos();
@@ -31,31 +32,32 @@ export default {
             guiones1: [],
             guiones2: [],
             solucion: [],
-            nodoLetra: null,
             nodoError: [],
-            letrasmal: [],
+            nodoLetra: '',
+            foto: '',
             num: 1,
-            foto: "",
-        };
+            vidasPerdidas: (localStorage.getItem("lifes") === null)
+                ? [true, true, true, true]
+                : JSON.parse(localStorage.getItem("lifes")),
+        }
     },
     methods: {
         cargarDatos() {
             fetch("../public/php/datosFroga3.php", {
-                method: "POST",
-                body: "#Datos3",
-            })
-                .then((response) => response.json())
-                .then((data) => {
+                    method: "POST",
+                    body: '#Datos3'
+                }).then(response => response.json())
+                .then(data => {
                     // Metemos la palabra en hitza
-                    let hitza = data[this.numeros3[0]].toLowerCase().split(" ");
+                    let hitza = (data[this.numeros3[0]].toLowerCase().split(' '));
                     // Metemos la posicion 0 en hitza1
-                    let hitz1 = hitza[0];
-                    // Metemos la posicion 0 en hitza1
-                    let hitz2 = hitza[1];
+                    let hitz1 = (hitza[0]);
+                    // Metemos la posicion 0 en hitza2
+                    let hitz2 = (hitza[1]);
 
                     // Hacemos que cada string se divida por caracter y se meta en el array
-                    this.palabra1 = hitz1.split("");
-                    this.palabra2 = hitz2.split("");
+                    this.palabra1 = hitz1.split('');
+                    this.palabra2 = hitz2.split('');
 
                     // Hacemos que por cada longitud de cada palabra nos cree en el array guiones[x]
                     // this.guiones1.push(this.crearGuiones(this.palabra1))
@@ -63,15 +65,22 @@ export default {
                     this.crearGuiones(this.palabra2, this.guiones2);
 
                     // Espacio para la separacion
-                    this.guiones1.push(" ");
+                    this.guiones1.push(' ');
 
                     // Metemos los dos arrays en solcuion
                     this.solucion = this.guiones1.concat(this.guiones2);
+
+
                 });
         },
+        /**
+         * 
+         * @param {Int} kant 
+         * @param {Array} array 
+         */
         crearGuiones(kant, array) {
             // let barras = [];
-            kant.forEach((letra) => {
+            kant.forEach(letra => {
                 let barras = "";
                 for (let i in letra) {
                     // barras.push('_');
@@ -81,6 +90,11 @@ export default {
             });
             // return barras;
         },
+        /**
+         * 
+         * @param {Int} kant
+         * 
+         */
         numAleatoriosNoRepes(kant) {
             let i = 0;
             while (i < kant) {
@@ -92,94 +106,80 @@ export default {
             }
         },
         comprobarLetra() {
+
             // Cogemos el valor de el input y lo guardamos
             this.nodoLetra = this.nodoLetra.toLowerCase().trim();
 
             // Comprobamos que el input no esta vacio y no es mayor a 1
             if (this.nodoLetra.length == 1) {
-                if (
-                    !this.letrasmal.some(
-                        (elemento) => this.nodoLetra == elemento
-                    )
-                ) {
-                    let posicion = [];
-                    let indice = "";
 
-                    indice = this.palabra1.indexOf(this.nodoLetra);
+                let posicion = [];
+                let indice = "";
 
-                    while (indice !== -1) {
-                        posicion.push(indice);
-                        indice = this.palabra1.indexOf(
-                            this.nodoLetra,
-                            indice + 1
-                        );
-                    }
+                indice = this.palabra1.indexOf(this.nodoLetra);
 
-                    indice = this.palabra2.indexOf(this.nodoLetra);
-
-                    while (indice !== -1) {
-                        posicion.push(indice + this.palabra1.length + 1);
-                        indice = this.palabra2.indexOf(
-                            this.nodoLetra,
-                            indice + 1
-                        );
-                    }
-
-                    for (let pos in posicion) {
-                        console.log("Inidice: " + pos);
-                        this.solucion.splice(posicion[pos], 1, this.nodoLetra);
-                    }
-
-                    if (!this.solucion.includes("_")) {
-                        Swal.fire({
-                            icon: "success",
-                            title: "Oso ondo!",
-                            text: "Froga ondo egin duzu",
-                            background: "#21605D",
-                            color: "white",
-                            confirmButtonColor: "#339476",
-                        }).then((result) => {
-                            this.gorde();
-                            window.location.href = "./froga4";
-                        });
-                    }
-
-                    if (posicion.length == 0) {
-                        // Mete en nodoError la this.nodoLetra para que le salga el error en el html de que no esta
-                        this.nodoError.push(this.nodoLetra);
-                        this.letrasmal.push(this.nodoLetra);
-                        // Cambiamos la foto del ahorcado
-                        this.ahorcadoFoto();
-                        // Sale el swal si ha gastado toda las vidas
-                        if (this.num == 8) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Oops...",
-                                text: "saiakera guztiak gastatu dituzu",
-                                footer: '<a href="./froga1">Saiatu Berriro</a> ',
-                                background: "#21605D",
-                                color: "white",
-                                confirmButtonColor: "#339476",
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "./orriNagusi";
-                                }
-                            });
-                        }
-                    }
-                } else {
-                    Swal.fire("Oops...", "Hitz hori badago sartuta", "error");
+                while (indice !== -1) {
+                    posicion.push(indice);
+                    indice = this.palabra1.indexOf(this.nodoLetra, indice + 1);
                 }
+
+                indice = this.palabra2.indexOf(this.nodoLetra);
+
+                while (indice !== -1) {
+                    posicion.push(indice + this.palabra1.length + 1);
+                    indice = this.palabra2.indexOf(this.nodoLetra, indice + 1);
+                }
+
+
+                for (let pos in posicion) {
+                    this.solucion.splice(posicion[pos], 1, this.nodoLetra)
+                }
+
+                if (!this.solucion.includes('_')) {
+                    Swal.fire({
+                        icon: "success",
+                        title: "Zorionak",
+                        text: "Irabazi duzu jokoa. Gogoratu zenbakia: " + localStorage.getItem("codRand")[2],
+                        background: "#21605D",
+                        color: "white",
+                        confirmButtonColor: "#339476",
+                    }).then((value) => {
+                        this.gorde();
+                        window.location.href = "./froga4";
+                    });
+                }
+
+                if (posicion.length == 0) {
+                    // Mete en nodoError la this.nodoLetra para que le salga el error en el html de que no esta
+                    this.nodoError.push(this.nodoLetra);
+                    // Cambiamos la foto del ahorcado
+                    this.ahorcadoFoto();
+                    // Sale el swal si ha gastado toda las vidas
+                    if (this.num == 8) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'saiakera guztiak gastatu dituzu',
+                            footer: '<a href="./froga1">Saiatu Berriro</a> ',
+                            background: '#21605D',
+                            color: 'white',
+                            confirmButtonColor: "#339476",
+                        }).then(result => {
+                            if (result.isConfirmed) {
+                                window.location.href = './orriNagusi';
+                            }
+                        })
+                    }
+                }
+                this.nodoletra = null;
             } else {
                 // Se mete si el input no es solo 1 karakter
-                Swal.fire("Bakarrik karaktere bat jarri ahal da.");
+                Swal.fire('Bakarrik karaktere bat jarri ahal da.')
             }
-            this.nodoletra = null;
         },
-
         ahorcadoFoto() {
             // Cambia de foto de ahorcado
-            this.foto = "./multimedia/Ahorcado/ahorcado_" + this.num + ".png";
+            this.foto = './multimedia/Ahorcado/ahorcado_' + this.num + '.png';
             this.num++;
         },
         gorde() {
@@ -188,8 +188,10 @@ export default {
             let segundo = document.getElementById("sec").innerHTML;
             localStorage.setItem("min", minuto);
             localStorage.setItem("sec", segundo);
-        }
+        },
     },
-    computed: {},
+    computed: {
+
+    }
 };
 </script>

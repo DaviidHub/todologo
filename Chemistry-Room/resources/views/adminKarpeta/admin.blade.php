@@ -37,14 +37,14 @@
         </table>
 
         <form action="{{ route('web.storeFotos') }}" method="POST" enctype="multipart/form-data" 
-        class="formLogin d-flex flex-column align-items-center mx-5" autocomplete="off">
+        class="formLogi d-flex align-items-center" autocomplete="off">
         @csrf    
             
-            <input type="text" class="argazkiForm" name="izena" placeholder="izena" value="{{ old('izena') }}">
+            <input type="text" class="argazkiForm mx-5" name="izena" placeholder="Argazki izena" value="{{ old('izena') }}">
         
             <input id="inputArgazki" type="file" name="argazki" class="argazkiForm" placeholder="argazki" value="{{ old('argazki') }}">
     
-            <input id="argazkiBotoi" type="submit">
+            <input id="argazkiBotoi" type="submit" value="BIDALI">
         </form>
 
     </main>

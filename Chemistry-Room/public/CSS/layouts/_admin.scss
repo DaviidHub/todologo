@@ -50,19 +50,6 @@ $img-shadow: 0 -4px 4px rgba(0 0 0 / .5);
 }
 
 // TAULAREN "X"-A
-#argazkiBotoi{
-    width: 20%;
-    background-color: $dark-green !important;
-    border-radius: 1em;
-    margin: 20px;
-    border-color: $dark-green;
-    color: $light-gray;
-    border: none !important;
-    margin-left: 40%;
-    margin-top: 10%;
-        
-    
-}
 
 .ekis{
     background-color: transparent;
@@ -75,8 +62,24 @@ $img-shadow: 0 -4px 4px rgba(0 0 0 / .5);
     box-shadow: none !important;
 }
 
+
+// Argazkia igotzeko formularioa
+#argazkiBotoi{
+    width: 23%;
+    background-color: $dark-green !important;
+    border-radius: 1em;
+    margin: 25px;
+    border-color: $dark-green;
+    color: $light-gray !important;
+    display: flex;
+    justify-content: center;
+    border: none !important;
+    margin-left: 10% !important ;
+    margin-top: 5%;
+        
+}
+
 .argazkiForm{
-    width: 20%;
     border-radius: 10px;
     border: 0;
     margin-top: 2em;
@@ -87,6 +90,4 @@ $img-shadow: 0 -4px 4px rgba(0 0 0 / .5);
     }
 }
 
-#argazkiBotoi{
-    margin-right: 40%;
-}
+
