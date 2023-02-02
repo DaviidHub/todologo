@@ -111,6 +111,7 @@ class ErabiltzaileController extends Controller
     {
         //
         
+
         $argazkiDatu = new Argazkiak();
 
         if($request->hasFile('argazki') ){

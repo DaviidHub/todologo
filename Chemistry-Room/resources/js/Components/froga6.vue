@@ -64,16 +64,20 @@ export default {
             respuestas: [],
             divSolucion: "",
             bool: false,
+            vidasPerdidas:
+                localStorage.getItem("lifes") === null
+                    ? [true, true, true, true]
+                    : JSON.parse(localStorage.getItem("lifes")),
         };
     },
     methods: {
         /**
-         * 
-         * @param {Array} arrayGaldera 
-         * @param {Array} arrayErantzuna 
-         * @param {Int} zenbaki 
-         * @param {Array} jsonPregunta 
-         * @param {Array} jsonRespuesta 
+         *
+         * @param {Array} arrayGaldera
+         * @param {Array} arrayErantzuna
+         * @param {Int} zenbaki
+         * @param {Array} jsonPregunta
+         * @param {Array} jsonRespuesta
          */
         cargarDatos(
             arrayGaldera,
@@ -97,11 +101,11 @@ export default {
                 });
         },
         /**
-         * 
-         * @param {Array} array 
-         * @param {Int} kant 
-         * @param {Int} max 
-         * @param {Int} min 
+         *
+         * @param {Array} array
+         * @param {Int} kant
+         * @param {Int} max
+         * @param {Int} min
          */
         numAleatoriosNoRepes(array, kant, max, min) {
             let i = 0;
@@ -129,15 +133,43 @@ export default {
                         "div"
                     ).style.display = "block";
                 } else {
-                    Swal.fire({
-                        icon: "error",
-                        title: "Oops",
-                        text: "Zerbait ez dago ondo",
-                        background: "#21605D",
-                        color: "white",
-                        confirmButtonColor: "#339476",
+                    let vidas = this.vidasPerdidas.every((value) => {
+                        return value === false;
                     });
+
+                    if (vidas) {
+                        Swal.fire({
+                            icon: "error",
+                            title: "Bizitzak",
+                            text: "amaitu egin dira",
+                            background: "#21605D",
+                            color: "white",
+                            confirmButtonColor: "#339476",
+                        }).then((value) => {
+                            location.href = "./orriNagusi";
+                        });
+                    } else {
+                        this.vidasPerdidas.splice(
+                            this.vidasPerdidas.lastIndexOf(true),
+                            1,
+                            false
+                        );
+                        Swal.fire({
+                            icon: "error",
+                            title: "Oops",
+                            text: "Zerbait ez dago ondo",
+                            background: "#21605D",
+                            color: "white",
+                            confirmButtonColor: "#339476",
+                        });
+                    }
                 }
+
+                localStorage.removeItem("lifes");
+                localStorage.setItem(
+                    "lifes",
+                    JSON.stringify(this.vidasPerdidas)
+                );
             }
         },
         solucion() {
@@ -166,8 +198,8 @@ export default {
     },
     computed: {
         /**
-         * 
-         * @returns {Boolean} 
+         *
+         * @returns {Boolean}
          */
         comprobacionArray() {
             let kont = 0;

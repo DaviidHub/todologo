@@ -10,8 +10,8 @@ export const useCounterStore = defineStore("lifes", {
         removeLife() {
             this.lifes.splice(this.lifes.length - this.count, 1, false);
             if (this.count < this.lifes.length) {
-
                 this.count++;
+                console.log("🚀 ~ file: lifes.js:26 ~ removeLife ~ this.count++;", this.count++)
             } else {
                 Swal.fire({
                     icon: "error",

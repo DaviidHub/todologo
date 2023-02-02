@@ -23,6 +23,11 @@ export default {
         this.cargarDatos();
         this.numAleatoriosNoRepes(1);
         this.ahorcadoFoto();
+        this.vidasPerdidas.splice(
+                  this.vidasPerdidas.lastIndexOf(true),
+                  1,
+                  false
+              );
     },
     data() {
         return {

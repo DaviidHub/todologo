@@ -27,6 +27,11 @@ export default {
         this.numAleatoriosNoRepes(6);
         this.generarTablero();
         this.cargarDatos();
+        this.vidasPerdidas.splice(
+                  this.vidasPerdidas.lastIndexOf(true),
+                  1,
+                  false
+              );
     },
     data() {
         return {

@@ -5,7 +5,7 @@
         <div v-if="show">
             <div class="bocadilloPista d-flex justify-content-center">
                 <h2 class="pistaText p-3 text-justify">
-                    {{ getWindowName(window.location.pathname[window.location.pathname.length - 1]) }}
+                    {{ pista }}
                 </h2>
             </div>
         </div>
@@ -24,20 +24,17 @@
 
 <script>
 export default {
+    mounted() {
+        this.loadLocalStorage();
+    },
     data() {
         return {
             show: false,
-            time: 0,
             intervalTime: "",
-            pistaJSON: localStorage.getItem("pistak").split(",") || "Error",
-            pistaFroga: {
-                1: this.pistaJSON[0],
-                2: this.pistaJSON[1],
-                3: this.pistaJSON[2],
-                4: this.pistaJSON[3],
-                5: this.pistaJSON[4],
-                6: this.pistaJSON[5],
-            },
+            time: 0,
+            intervalLocalStorage: "",
+            contador: 0,
+            pistaFroga: {},
         };
     },
     methods: {
@@ -59,16 +56,44 @@ export default {
                 }, 1000);
             }
         },
-    },
-
-    computed: {
         /**
          *
          * @param {String} name
          */
-        getWindowName(name) {
-            // console.log(pistaFroga[name]);
-            return pistaFroga[name] || "Error";
+        getWindowName() {
+            let index =
+                window.location.pathname[window.location.pathname.length - 1];
+            this.pista = this.pistaFroga[index] || "Error";
+        },
+        loadLocalStorage() {            
+            if (localStorage.getItem("pistas") === null ) {
+                const SELF = this;
+                SELF.intervalLocalStorage = setInterval(() => {
+                    SELF.contador++;
+                    if (SELF.contador === 2) {
+                        SELF.pistaFroga = {
+                            1: localStorage.getItem("pistak").split(",")[0],
+                            2: localStorage.getItem("pistak").split(",")[1],
+                            3: localStorage.getItem("pistak").split(",")[2],
+                            4: localStorage.getItem("pistak").split(",")[3],
+                            5: localStorage.getItem("pistak").split(",")[4],
+                            6: localStorage.getItem("pistak").split(",")[5],
+                        };
+                        SELF.getWindowName();
+                    } else if (SELF.contador === 3) {
+                        clearInterval(SELF.intervalLocalStorage);
+                    }
+                }, 1000);
+            } else {
+                this.pistaFroga = {
+                    1: localStorage.getItem("pistak").split(",")[0],
+                    2: localStorage.getItem("pistak").split(",")[1],
+                    3: localStorage.getItem("pistak").split(",")[2],
+                    4: localStorage.getItem("pistak").split(",")[3],
+                    5: localStorage.getItem("pistak").split(",")[4],
+                    6: localStorage.getItem("pistak").split(",")[5],
+                };
+            }
         },
     },
 };

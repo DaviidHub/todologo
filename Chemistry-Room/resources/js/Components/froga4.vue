@@ -48,6 +48,11 @@ export default {
             2,
             3
         );
+        this.vidasPerdidas.splice(
+                  this.vidasPerdidas.lastIndexOf(true),
+                  1,
+                  false
+              );
     },
     data() {
         return {
@@ -185,14 +190,14 @@ export default {
     },
     computed: {
         comprobacionArray() {
-            this.respuesta.forEach((elemento, index) => {
-                console.log(index);
-                console.log(elemento == this.respuestasJuntas[index]);
+            console.log("BASE DE DATOS", this.respuesta);
+            console.log("INPUT RESPUESTAS", this.respuestasJuntas);
+            // let kont = 0;
+            // this.bool = false;
+
+            return this.respuesta.every((elemento, index) => {
+                elemento == this.respuestasJuntas[index];
             });
-            
-            return this.respuesta.every((elemento, index) => 
-                 elemento == this.respuestasJuntas[index]
-        );
         },
     },
 };

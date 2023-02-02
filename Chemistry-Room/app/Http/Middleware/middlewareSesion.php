@@ -22,5 +22,7 @@ class middlewareSesion
         return $next($request);
 
         return view('web.orriNagusi');
+        
+
     }
 }
